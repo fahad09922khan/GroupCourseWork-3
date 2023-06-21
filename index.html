@@ -25,31 +25,57 @@
 
 <body>
     <div id="app" class="display-flex-col width-height">
-        <header class="display-flex-row">
-            <h1>{{sitename}}</h1>
-            <div v-if="showItems">
-                <button class="btn btn-primary" v-if="canRemoveFromCart" v-on:click="checkout">
+        <!------------------ HEader Section----------------- -->
+        <div class="container-fluid bg-danger">
+            <div class="row">
+                <div class="col-md-10">
+                    <h1 class="text-white">{{sitename}}</h1>
+                </div>
+                <div class="col-md-2">
+                    <div v-if="showItems">
+                        <button class="btn btn-white mt-2" v-if="canRemoveFromCart" v-on:click="checkout">
                     {{cartItemCount}}
                     <i class="bx bx-cart"></i>
                     Checkout
                 </button>
-                <button class="btn btn-disable border" disabled="disabled" v-else>
+                        <button class="btn btn-white text-white mt-2 border" disabled="disabled" v-else>
                     {{cartItemCount}}
                     <i class="bx bx-cart"></i>
                 </button>
-            </div>
-            <div v-else>
-                <button class="btn btn-primary" v-on:click="checkout">
+                    </div>
+                    <div v-else>
+                        <button class="btn btn-white mt-2" v-on:click="checkout">
                     <i class='bx bx-left-arrow-alt'></i>
                     Back
                 </button>
+                    </div>
+                </div>
             </div>
-        </header>
-        <main class="display-flex-col width-height">
+        </div>
+        <!------------------ HEader Section----------------- -->
+
+
+        <main class="display-flex-col ">
             <section id="subject_page" class="display-flex-col width-height" v-if="showItems">
-                <h2 class="text-danger fw-bold">Subjects page</h2>
-                <div id="container" class="display-flex-row width-height">
-                    <div id="filters" class="display-flex-col ">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2 class="text-danger display-flex-col m-3 fw-bold">Subjects page</h2>
+                        </div>
+                        <div class="col-md-9">
+                            <div id="search" class="m-3">
+                                <div class="form-outline ">
+                                    <input type="search" v-model.trim="searchInput" name="search" class="form-group" placeholder="Search" aria-label="Search" />
+                                </div>
+                                <!-- <label for="search">Search: </label>
+                    <input  type="text" v-model.trim="searchInput"> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="container" class="display-flex-row border width-height">
+                    <div id="filters" class="display-flex-col border bg-danger text-white m-2">
                         <h3>Sort By</h3>
                         <div id="sort_by">
                             <div class="radio_container">
@@ -82,15 +108,7 @@
                         </div>
                     </div>
                     <div id="subjects_container" class="display-flex-col width-height">
-                        <div id="search">
 
-                            <div class="form-outline">
-                                <input type="search" v-model.trim="searchInput" name="search" class="form-group" placeholder="Search" aria-label="Search" />
-                            </div>
-
-                            <!-- <label for="search">Search: </label>
-                            <input  type="text" v-model.trim="searchInput"> -->
-                        </div>
                         <div id="subjects">
                             <div class="subject m-3" v-for="subject in filterItems">
                                 <div style="width: 100%; display: inline-flex; align-items: center;">
@@ -112,7 +130,7 @@
                     </div>
                 </div>
             </section>
-            <section id="cart_page" class="display-flex-col width-height" v-else>
+            <section id="cart_page" class="display-flex-col width-height border" v-else>
                 <h4>Cart Page</h4>
                 <div id="cart_container" class="display-flex-row width-height">
                     <div id="Checkout" class="display-flex-col height">
@@ -150,7 +168,7 @@
                                         <img class="image" v-bind:src="subject.item.image">
                                     </figure>
                                 </div>
-                                <button class="btn btn-success" v-on:click="removeFromCart(subject.item)">Remove From Cart</button>
+                                <button class="btn btn-danger" v-on:click="removeFromCart(subject.item)">Remove From Cart</button>
                             </div>
                         </div>
                     </div>
