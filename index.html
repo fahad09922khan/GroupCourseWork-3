@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,52 +9,60 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="manifest" href="index.webmanifest">
     <script>
-        if('serviceWorker' in navigator){
+        if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js')
         }
     </script>
-    <title>Web Academy</title>
+    <title>Darsgah Academy</title>
     <style>
-        *{
+        * {
             padding: 0%;
             margin: 0;
             box-sizing: border-box;
         }
-        .display-flex-row{
+
+        .display-flex-row {
             display: flex;
             flex-direction: row;
         }
-        .display-flex-col{
+
+        .display-flex-col {
             display: flex;
             flex-direction: column;
         }
-        .width{
+
+        .width {
             width: 100%;
         }
-        .height{
+
+        .height {
             height: 100%;
         }
-        .width-height{
+
+        .width-height {
             width: 100%;
             height: 100%;
         }
-        header{
+
+        header {
             width: 100%;
             padding: 0.5rem;
             align-items: center;
             justify-content: space-evenly;
             box-shadow: 1px 6px 6px #21214230;
         }
-        header button{
+
+        header button {
             font-size: 1rem;
         }
-        
-        #filters{
+
+        #filters {
             width: 30%;
             height: 100%;
             align-items: center;
         }
-        #subjects{
+
+        #subjects {
             width: 100%;
             height: 100%;
             display: grid;
@@ -61,45 +70,53 @@
             grid-column-gap: 1rem;
             padding: 1rem;
         }
-        .subject{
+
+        .subject {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
             border: 1px solid #21214290;
             border-radius: 1rem;
         }
-        .subject .info_container{
+
+        .subject .info_container {
             padding: 0.5rem;
         }
-        .subject button{
+
+        .subject button {
             width: 50%;
             align-self: center;
             padding: 0.75rem 0;
             background-color: rgb(0, 179, 255);
             border-radius: 0.5rem;
         }
-        .subject figure{
+
+        .subject figure {
             width: 120px;
         }
-        .subject img{
+
+        .subject img {
             width: 100%;
             object-fit: cover;
         }
-        .subject *{
+
+        .subject * {
             margin: 0.25rem 0;
         }
-        #Checkout{
+
+        #Checkout {
             width: 30%;
             align-items: center;
         }
     </style>
 </head>
+
 <body>
     <div id="app" class="display-flex-col width-height">
         <header class="display-flex-row">
             <h1>{{sitename}}</h1>
             <div v-if="showItems">
-                <button  v-if="canRemoveFromCart" v-on:click="checkout">
+                <button v-if="canRemoveFromCart" v-on:click="checkout">
                     {{cartItemCount}}
                     <i class="bx bx-cart"></i>
                     Checkout
@@ -157,7 +174,7 @@
                             <label for="search">Search: </label>
                             <input name="search" type="text" v-model.trim="searchInput">
                         </div>
-                        <div id="subjects" >
+                        <div id="subjects">
                             <div class="subject" v-for="subject in filterItems">
                                 <div style="width: 100%; display: inline-flex; align-items: center;">
                                     <div class="info_container">
@@ -174,11 +191,11 @@
                                 <button v-else disabled>Add To Cart</button>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </section>
-            <section id="cart_page"  class="display-flex-col width-height" v-else>
+            <section id="cart_page" class="display-flex-col width-height" v-else>
                 <h2>Cart Page</h2>
                 <div id="cart_container" class="display-flex-row width-height">
                     <div id="Checkout" class="display-flex-col height">
@@ -220,45 +237,45 @@
 <script src="items.js"></script>
 <script>
     var app = new Vue({
-        el:"#app",
-        computed:{
-            can_showSubjects(){
+        el: "#app",
+        computed: {
+            can_showSubjects() {
                 return this.showSubjects
             },
-            cartItemCount(){
+            cartItemCount() {
                 return this.cart.length || "Empty";
             },
-            canRemoveFromCart(){
+            canRemoveFromCart() {
                 return this.cart.length > 0
             },
-            canCheckout(){
-                if(this.userData.phone.match(/^[0-9]+$/) != null & this.userData.name.match(/^[A-Za-z]+$/) != null){
+            canCheckout() {
+                if (this.userData.phone.match(/^[0-9]+$/) != null & this.userData.name.match(/^[A-Za-z]+$/) != null) {
                     return true
                 }
                 return false
             },
-            filterItems(){
+            filterItems() {
                 if (this.criteria != "all" & this.criteria != "availability" & this.criteria != "price") {
-                    return this.items.filter(x => x[this.criteria].toLowerCase().includes(this.searchInput)).sort((a,b)=>{
+                    return this.items.filter(x => x[this.criteria].toLowerCase().includes(this.searchInput)).sort((a, b) => {
                         switch (this.order) {
                             case "ascending":
-                                    if(a[this.criteria] > b[this.criteria]){
-                                        return 1
-                                    }
-                                    if(b[this.criteria] > a[this.criteria]){
-                                        return -1
-                                    }
-                                    return 0
-                                break;
-                            case "descending":
-                                if(a[this.criteria] > b[this.criteria]){
+                                if (a[this.criteria] > b[this.criteria]) {
+                                    return 1
+                                }
+                                if (b[this.criteria] > a[this.criteria]) {
                                     return -1
                                 }
-                                if(b[this.criteria] > a[this.criteria]){
+                                return 0
+                                break;
+                            case "descending":
+                                if (a[this.criteria] > b[this.criteria]) {
+                                    return -1
+                                }
+                                if (b[this.criteria] > a[this.criteria]) {
                                     return 1
                                 }
                                 return 0
-                            break;
+                                break;
                         }
                     })
                 }
@@ -266,79 +283,80 @@
                     return this.items.filter(x => x["spaces"] > 0)
                 }
                 if (this.criteria == "price") {
-                    return this.items.filter(x => (x["price"]+"").includes(this.searchInput)).sort((a,b)=>{
+                    return this.items.filter(x => (x["price"] + "").includes(this.searchInput)).sort((a, b) => {
                         switch (this.order) {
                             case "ascending":
-                                    if(a[this.criteria] > b[this.criteria]){
-                                        return 1
-                                    }
-                                    if(b[this.criteria] > a[this.criteria]){
-                                        return -1
-                                    }
-                                    return 0
-                                break;
-                            case "descending":
-                                if(a[this.criteria] > b[this.criteria]){
+                                if (a[this.criteria] > b[this.criteria]) {
+                                    return 1
+                                }
+                                if (b[this.criteria] > a[this.criteria]) {
                                     return -1
                                 }
-                                if(b[this.criteria] > a[this.criteria]){
+                                return 0
+                                break;
+                            case "descending":
+                                if (a[this.criteria] > b[this.criteria]) {
+                                    return -1
+                                }
+                                if (b[this.criteria] > a[this.criteria]) {
                                     return 1
                                 }
                                 return 0
-                            break;
+                                break;
                         }
                     })
                 }
             }
         },
-        methods:{
-            addToCart(item){
+        methods: {
+            addToCart(item) {
                 if (item.spaces > 0) {
                     item.spaces--
-                    const data ={
-                        "cart_id": `${item.lesson[0]}`+`-${item.location[0]}-`+Math.ceil(Math.random()*10000),//adding an item to a cart while generating unique id for all items 
-                        "item": item
-                    }
+                        const data = {
+                            "cart_id": `${item.lesson[0]}` + `-${item.location[0]}-` + Math.ceil(Math.random() * 10000), //adding an item to a cart while generating unique id for all items
+                            "item": item
+                        }
                     this.cart.push(data)
                 }
             },
-            removeFromCart(cart_item){
+            removeFromCart(cart_item) {
                 cart_item.spaces++
-                for(let i = 0; i < this.cart.length; i++){
-                    const item = this.cart[i]
-                    if(cart_item.id == item.id){
-                        this.cart.splice(i,1)
-                        break;
+                    for (let i = 0; i < this.cart.length; i++) {
+                        const item = this.cart[i]
+                        if (cart_item.id == item.id) {
+                            this.cart.splice(i, 1)
+                            break;
+                        }
                     }
-                }
-                
+
             },
-            submit_cart(){
+            submit_cart() {
                 alert("Submitted cart")
             },
-            checkout(){
+            checkout() {
                 this.showItems = this.showItems ? false : true
             },
-            changeCriteria(criteria){
+            changeCriteria(criteria) {
                 this.criteria = criteria
             },
-            changeOrder(order){
+            changeOrder(order) {
                 this.order = order
             }
         },
-        data:{
-            sitename:"Web Academy",
-            criteria:"lesson",
-            order:"ascending",
-            searchInput:"",
+        data: {
+            sitename: "Darsgah Academy",
+            criteria: "lesson",
+            order: "ascending",
+            searchInput: "",
             cart: [],
-            showItems:true,
-            items:[...items],
-            userData:{
-                name:"",
-                phone:"",
+            showItems: true,
+            items: [...items],
+            userData: {
+                name: "",
+                phone: "",
             },
         }
     })
 </script>
+
 </html>
