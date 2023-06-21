@@ -238,6 +238,19 @@
 <script>
     var app = new Vue({
         el: "#app",
+        data: {
+            sitename: "Darsgah Academy",
+            criteria: "lesson",
+            order: "ascending",
+            searchInput: "",
+            cart: [],
+            showItems: true,
+            items: [...items],
+            userData: {
+                name: "",
+                phone: "",
+            },
+        },
         computed: {
             can_showSubjects() {
                 return this.showSubjects
@@ -343,19 +356,6 @@
                 this.order = order
             }
         },
-        data: {
-            sitename: "Darsgah Academy",
-            criteria: "lesson",
-            order: "ascending",
-            searchInput: "",
-            cart: [],
-            showItems: true,
-            items: [...items],
-            userData: {
-                name: "",
-                phone: "",
-            },
-        }
     })
 </script>
 
