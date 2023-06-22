@@ -4,8 +4,9 @@
     "description": "CW3 Group Work Pet Store",
     "icons": [{
             "src": "assets/icon-store-512.png",
-            "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "sizes": "512x512"
+           
         },
         {
             "src": "assets/icon-store-192.png",
