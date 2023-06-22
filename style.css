@@ -1,30 +1,7 @@
-/* button:hover {
-    background-color: salmon;
-    color: white;
-} */
-
 input {
     padding: 0.5rem;
     border-radius: 0.5rem;
 }
-
-
-/* input[type="button"]{
-    padding: 1rem;
-    cursor: pointer;
-}
-input[type="button"]:hover{
-    background-color: salmon;
-    color: white;
-}
-input[type=text]{
-
-    border: 1px dashed #212142;
-    outline: none;
-}
-input[type=text]:focus{
-    border: 1px dashed salmon;
-} */
 
 #app {
     width: 100%;
